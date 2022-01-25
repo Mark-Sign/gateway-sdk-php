@@ -2,7 +2,9 @@
     "name": "mark-sign/gateway-sdk-php",
     "type": "library",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "psr/log": "^1.1",
+        "symfony/http-client": "^5.4"
     },
     "license": "MIT",
     "authors": [
