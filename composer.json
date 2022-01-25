@@ -2,8 +2,7 @@
     "name": "mark-sign/gateway-sdk-php",
     "type": "library",
     "require": {
-        "php": ">=7.2",
-        "guzzlehttp/guzzle": "^7.4"
+        "php": ">=7.2"
     },
     "license": "MIT",
     "authors": [
