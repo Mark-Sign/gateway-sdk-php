@@ -3,11 +3,11 @@
 namespace AppBundle\GatewaySDKPhp;
 
 
-use AppBundle\GatewaySDKPhp\src\Exception\ApiException;
-use AppBundle\GatewaySDKPhp\src\Exception\RequestException;
-use AppBundle\GatewaySDKPhp\src\Model\RequestInterface;
-use AppBundle\GatewaySDKPhp\src\Model\Response;
-use AppBundle\GatewaySDKPhp\src\Model\ResponseInterface;
+use AppBundle\GatewaySDKPhp\Exception\ApiException;
+use AppBundle\GatewaySDKPhp\Exception\RequestException;
+use AppBundle\GatewaySDKPhp\Model\RequestInterface;
+use AppBundle\GatewaySDKPhp\Model\Response;
+use AppBundle\GatewaySDKPhp\Model\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 

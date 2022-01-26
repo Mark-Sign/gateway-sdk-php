@@ -4,8 +4,8 @@
 namespace AppBundle\GatewaySDKPhp;
 
 
-use AppBundle\GatewaySDKPhp\src\Model\RequestInterface;
-use AppBundle\GatewaySDKPhp\src\Model\ResponseInterface;
+use AppBundle\GatewaySDKPhp\Model\RequestInterface;
+use AppBundle\GatewaySDKPhp\Model\ResponseInterface;
 
 interface ConnectorInterface
 {

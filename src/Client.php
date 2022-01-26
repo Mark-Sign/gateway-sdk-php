@@ -4,12 +4,12 @@
 namespace AppBundle\GatewaySDKPhp;
 
 
-use AppBundle\GatewaySDKPhp\src\Connector;
-use AppBundle\GatewaySDKPhp\src\ConnectorInterface;
-use AppBundle\GatewaySDKPhp\src\Model\RequestInterface;
-use AppBundle\GatewaySDKPhp\src\Model\ResponseInterface;
-use AppBundle\GatewaySDKPhp\src\RequestBuilder\RequestBuilderInterface;
-use AppBundle\GatewaySDKPhp\src\RequestBuilder\SignDocumentSmartIdRequestBuilder;
+use AppBundle\GatewaySDKPhp\Connector;
+use AppBundle\GatewaySDKPhp\ConnectorInterface;
+use AppBundle\GatewaySDKPhp\Model\RequestInterface;
+use AppBundle\GatewaySDKPhp\Model\ResponseInterface;
+use AppBundle\GatewaySDKPhp\RequestBuilder\RequestBuilderInterface;
+use AppBundle\GatewaySDKPhp\RequestBuilder\SignDocumentSmartIdRequestBuilder;
 use Psr\Log\LoggerInterface;
 
 class Client

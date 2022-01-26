@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\GatewaySDKPhp\src\Model;
+namespace AppBundle\GatewaySDKPhp\Model;
 
 
 use Symfony\Contracts\HttpClient\ResponseInterface as BaseResponseInterfaceAlias;

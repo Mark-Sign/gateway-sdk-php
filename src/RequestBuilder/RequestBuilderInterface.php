@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AppBundle\GatewaySDKPhp\src\RequestBuilder;
+namespace AppBundle\GatewaySDKPhp\RequestBuilder;
 
 
-use AppBundle\GatewaySDKPhp\src\Model\RequestInterface;
+use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 
 interface RequestBuilderInterface
 {

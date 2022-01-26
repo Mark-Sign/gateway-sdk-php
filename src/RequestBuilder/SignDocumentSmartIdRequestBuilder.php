@@ -1,12 +1,12 @@
 <?php
 
 
-namespace AppBundle\GatewaySDKPhp\src\RequestBuilder;
+namespace AppBundle\GatewaySDKPhp\RequestBuilder;
 
 
-use AppBundle\GatewaySDKPhp\src\Exception\MissingParameterException;
-use AppBundle\GatewaySDKPhp\src\Model\Request;
-use AppBundle\GatewaySDKPhp\src\Model\RequestInterface;
+use AppBundle\GatewaySDKPhp\Exception\MissingParameterException;
+use AppBundle\GatewaySDKPhp\Model\Request;
+use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 
 class SignDocumentSmartIdRequestBuilder extends AbstractRequestBuilder
 {

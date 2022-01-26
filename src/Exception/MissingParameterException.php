@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\GatewaySDKPhp\src\Exception;
+namespace AppBundle\GatewaySDKPhp\Exception;
 
 
 class MissingParameterException extends \LogicException

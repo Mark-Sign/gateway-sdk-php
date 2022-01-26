@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\GatewaySDKPhp\src\Model;
+namespace AppBundle\GatewaySDKPhp\Model;
 
 
 class Request implements RequestInterface

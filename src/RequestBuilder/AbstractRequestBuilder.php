@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\GatewaySDKPhp\src\RequestBuilder;
+namespace AppBundle\GatewaySDKPhp\RequestBuilder;
 
 
 abstract class AbstractRequestBuilder implements RequestBuilderInterface
