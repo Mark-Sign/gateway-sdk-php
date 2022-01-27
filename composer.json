@@ -12,5 +12,10 @@
             "name": "Mark Sign",
             "email": "info@markid.lt"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "AppBundle\\GatewaySDKPhp\\": "src/"
+        }
+    }
 }
