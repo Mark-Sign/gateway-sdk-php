@@ -134,7 +134,7 @@ class Connector implements ConnectorInterface
 
         if ($statusCode !== 200) {
             $message = "Unexpected response status code '{$statusCode}'";
-            $statusMessage = $content["error"] ?? $content['message'] ?? '';
+            $statusMessage = $content['error'] ?? $content['message'] ?? '';
             $message .= strlen($statusMessage) > 0 ? ": '$statusMessage'" : '';
             throw new ApiException($message, $statusCode);
         } elseif (!isset($content['result'])) {
