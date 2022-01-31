@@ -15,6 +15,7 @@ class Connector implements ConnectorInterface
 {
     private const API_PATH_SIGN_DOCUMENT_SMART_ID = '/smartid/sign.json';
     private const API_PATH_SIGN_DOCUMENT_MOBILE_ID = '/mobileid/sign.json';
+    private const API_PATH_DOCUMENT_UPLOAD = '/document/upload.json';
 
     /**
      * @var string
@@ -49,6 +50,8 @@ class Connector implements ConnectorInterface
                 return $this->postSignDocumentSmartIdRequest($request);
             case RequestInterface::API_NAME_SIGN_DOCUMENT_MOBILE_ID:
                 return $this->postSignDocumentMobileIdRequest($request);
+            case RequestInterface::API_NAME_DOCUMENT_UPLOAD:
+                return $this->postDocumentUploadRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');
         }
@@ -89,6 +92,23 @@ class Connector implements ConnectorInterface
     }
 
     /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postDocumentUploadRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            self::API_PATH_DOCUMENT_UPLOAD,
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
      * @param string $method
      * @param string $apiPath
      * @param array $options
@@ -113,7 +133,10 @@ class Connector implements ConnectorInterface
         $this->logger->debug("Returned response {$statusCode}", $content);
 
         if ($statusCode !== 200) {
-            throw new ApiException("Unexpected response status code '{$statusCode}'", $statusCode);
+            $message = "Unexpected response status code '{$statusCode}'";
+            $statusMessage = $content['error'] ?? $content['message'] ?? '';
+            $message .= strlen($statusMessage) > 0 ? ": '$statusMessage'" : '';
+            throw new ApiException($message, $statusCode);
         } elseif (!isset($content['result'])) {
             throw new ApiException('Response result object is missing');
         }
