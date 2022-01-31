@@ -9,6 +9,7 @@ interface RequestInterface
     public const API_NAME_SIGN_DOCUMENT_SMART_ID = 'apiSignDocumentSmartId';
     public const API_NAME_SIGN_DOCUMENT_MOBILE_ID = 'apiSignDocumentMobileId';
     public const API_NAME_DOCUMENT_UPLOAD = 'apiDocumentUpload';
+    public const API_NAME_DOCUMENT_VALIDATION = 'apiDocumentValidation';
 
     /**
      * @return string

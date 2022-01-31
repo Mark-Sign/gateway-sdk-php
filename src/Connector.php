@@ -4,6 +4,7 @@ namespace AppBundle\GatewaySDKPhp;
 
 
 use AppBundle\GatewaySDKPhp\Exception\ApiException;
+use AppBundle\GatewaySDKPhp\Exception\MissingParameterException;
 use AppBundle\GatewaySDKPhp\Exception\RequestException;
 use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\Model\Response;
@@ -16,6 +17,7 @@ class Connector implements ConnectorInterface
     private const API_PATH_SIGN_DOCUMENT_SMART_ID = '/smartid/sign.json';
     private const API_PATH_SIGN_DOCUMENT_MOBILE_ID = '/mobileid/sign.json';
     private const API_PATH_DOCUMENT_UPLOAD = '/document/upload.json';
+    private const API_PATH_DOCUMENT_VALIDATION = '/v2/document/{documentId}/validation.json';
 
     /**
      * @var string
@@ -38,7 +40,8 @@ class Connector implements ConnectorInterface
      */
     public function __construct(LoggerInterface $logger)
     {
-        $this->apiUrl = "https://www.markid.lt";
+        // $this->apiUrl = "https://www.markid.lt";
+        $this->apiUrl = "http://192.168.0.108/api";
         $this->client = HttpClient::create();
         $this->logger = $logger;
     }
@@ -52,9 +55,37 @@ class Connector implements ConnectorInterface
                 return $this->postSignDocumentMobileIdRequest($request);
             case RequestInterface::API_NAME_DOCUMENT_UPLOAD:
                 return $this->postDocumentUploadRequest($request);
+            case RequestInterface::API_NAME_DOCUMENT_VALIDATION:
+                return $this->postDocumentValidationRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');
         }
+    }
+
+    /**
+     * Replaces URL parameters from RequestInterface object
+     *
+     * @param string $url
+     * @param RequestInterface $request
+     * @return string
+     */
+    public function replaceURLParameters(string $url, RequestInterface $request): string
+    {
+        $matches = [];
+
+        $requestBody = $request->getBodyParameters();
+
+        // regex named capture
+        preg_match_all('/{(?<match>\w+)}/', $url, $matches);
+
+        foreach ($matches['match'] AS $param) {
+            if (!array_key_exists($param, $requestBody)) {
+                throw new MissingParameterException("Missing required request parameter '{$param}'");
+            }
+            $url = str_replace('{' . $param . '}', $requestBody[$param], $url);
+        }
+
+        return $url;
     }
 
     /**
@@ -109,6 +140,23 @@ class Connector implements ConnectorInterface
     }
 
     /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postDocumentValidationRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_DOCUMENT_VALIDATION, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
      * @param string $method
      * @param string $apiPath
      * @param array $options
@@ -133,21 +181,22 @@ class Connector implements ConnectorInterface
         $this->logger->debug("Returned response {$statusCode}", $content);
 
         if ($statusCode !== 200) {
+            $statusMessage = '';
+            if (isset($content['error']) && is_array($content['error'])) {
+                // This condition matches with symfony error response format
+                $statusMessage = $content['error']['message'] ?? '';
+            } else if (isset($content['message'])) {
+                $statusMessage = $content['message'];
+            }
+
             $message = "Unexpected response status code '{$statusCode}'";
-            $statusMessage = $content['error'] ?? $content['message'] ?? '';
             $message .= strlen($statusMessage) > 0 ? ": '$statusMessage'" : '';
             throw new ApiException($message, $statusCode);
-        } elseif (!isset($content['result'])) {
-            throw new ApiException('Response result object is missing');
         }
 
-        $result = $content['result'];
-        $resultStatusCode = $result['status_code'] ?? null;
-        $resultError = $result['error'] ?? null;
-
-        if ($resultStatusCode !== 200 && $resultError) {
-            throw new ApiException($resultError, $resultStatusCode);
-        }
+        // If $statusCode is 200, then it means there was no error in the request
+        // We can just return the $response
+        // Or we can build response for each APIs
 
         return $response;
     }
