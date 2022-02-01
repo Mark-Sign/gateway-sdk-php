@@ -2,6 +2,11 @@
 
 namespace AppBundle\GatewaySDKPhp\RequestBuilder\Traits;
 
+use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
+use ReflectionClass;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+
 /**
  * Trait for building parameters
  */
@@ -14,33 +19,48 @@ trait TraitBuildParameters
      */
     public function buildParameters()
     {
-        $vars = get_class_vars(get_class($this));
+        AnnotationRegistry::registerLoader('class_exists');
+        
+        $reflectionClass = new ReflectionClass(get_class($this));
+        $properties = $reflectionClass->getProperties();
+        $reader = new AnnotationReader();
+
         $return = [];
-        foreach ($vars as $var => $value) {
+        foreach ($properties as $property) {
 
-            if (!isset($this->$var)) continue;
+            $propertyName = $property->getName();
 
-            if ($this->usesBuildParametersTrait($this->$var)) {
+            $requestParameter = $reader->getPropertyAnnotation(
+                $property,
+                RequestParameter::class
+            );
+
+            if (!isset($this->$propertyName) || is_null($requestParameter)) continue;
+
+            $parameterName = $requestParameter->name;
+
+            if ($this->usesBuildParametersTrait($this->$propertyName)) {
                 // If current attribute value is object, and uses this trait, then call that object's trait method
                 // Please note that, the object might be traversable, in which case, it might have to be traversed to find if they are using the trait or not
                 // Will be implemented later, if necessary
 
-                $return[$var] = $this->$var->buildParameters();
-            } else if (is_array($this->$var)) {
+                $return[$parameterName] = $this->$propertyName->buildParameters();
+
+            } else if (is_array($this->$propertyName)) {
                 // If it's an array, check for its elements if they are using this trait, if yes, then call that object's trait method
 
                 $array = [];
-                foreach ($this->$var as $key => $value) {
+                foreach ($this->$propertyName as $key => $value) {
                     if ($this->usesBuildParametersTrait($value)) {
                         $array[$key] = $value->buildParameters();
                     } else {
                         $array[$key] = $value;
                     }
                 }
-                $return[$var] = $array;
+                $return[$parameterName] = $array;
             } else {
 
-                $return[$var] = $this->$var;
+                $return[$parameterName] = $this->$propertyName;
             }
         }
         return $return;

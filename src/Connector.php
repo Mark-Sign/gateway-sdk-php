@@ -18,6 +18,11 @@ class Connector implements ConnectorInterface
     private const API_PATH_SIGN_DOCUMENT_MOBILE_ID = '/mobileid/sign.json';
     private const API_PATH_DOCUMENT_UPLOAD = '/document/upload.json';
     private const API_PATH_DOCUMENT_VALIDATION = '/v2/document/{documentId}/validation.json';
+    private const API_PATH_DOCUMENT_FILE_VALIDATION = '/v2/document/validation.json';
+    private const API_PATH_DOCUMENT_SIGNER_INVITE = '/document/{documentId}/invite-signer.json';
+    private const API_PATH_DOCUMENT_STATUS_CHECK = '/document/{documentId}/check-status.json';
+    private const API_PATH_DOCUMENT_DOWNLOAD = '/document/{documentId}/download.json';
+    private const API_PATH_DOCUMENT_REMOVE = '/document/{documentId}/remove.json';
 
     /**
      * @var string
@@ -56,6 +61,16 @@ class Connector implements ConnectorInterface
                 return $this->postDocumentUploadRequest($request);
             case RequestInterface::API_NAME_DOCUMENT_VALIDATION:
                 return $this->postDocumentValidationRequest($request);
+            case RequestInterface::API_NAME_DOCUMENT_FILE_VALIDATION:
+                return $this->postDocumentFileValidationRequest($request);
+            case RequestInterface::API_NAME_DOCUMENT_SIGNER_INVITE:
+                return $this->postDocumentSignerInviteRequest($request);
+            case RequestInterface::API_NAME_DOCUMENT_STATUS_CHECK:
+                return $this->getDocumentStatusCheckRequest($request);
+            case RequestInterface::API_NAME_DOCUMENT_DOWNLOAD:
+                return $this->getDocumentDownloadRequest($request);
+            case RequestInterface::API_NAME_DOCUMENT_REMOVE:
+                return $this->deleteDocumentRemoveRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');
         }
@@ -156,6 +171,91 @@ class Connector implements ConnectorInterface
     }
 
     /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postDocumentFileValidationRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_DOCUMENT_FILE_VALIDATION, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postDocumentSignerInviteRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_DOCUMENT_SIGNER_INVITE, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function getDocumentStatusCheckRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'GET',
+            $this->replaceURLParameters(self::API_PATH_DOCUMENT_STATUS_CHECK, $request),
+            [
+                'query' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function getDocumentDownloadRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'GET',
+            $this->replaceURLParameters(self::API_PATH_DOCUMENT_DOWNLOAD, $request),
+            [
+                'query' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function deleteDocumentRemoveRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'DELETE',
+            $this->replaceURLParameters(self::API_PATH_DOCUMENT_REMOVE, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
      * @param string $method
      * @param string $apiPath
      * @param array $options
@@ -172,12 +272,17 @@ class Connector implements ConnectorInterface
         try {
             $response = $this->client->request($method, $url, $options);
             $statusCode = $response->getStatusCode();
-            $content = $response->toArray(false);
+
+            // Determine Content-Type
+            $headers = $response->getHeaders();
+            $content_type = (isset($headers['content-type']) && isset($headers['content-type'][0])) ? $headers['content-type'][0] : '';
+            // If Content-Type is other than application/json, we don't need to convert it to array
+            $content = ($content_type == 'application/json') ? $response->toArray(false) : [];
         } catch (\Throwable $e) {
             throw new RequestException('Request was not successful', 0, $e);
         }
 
-        $this->logger->debug("Returned response {$statusCode}", $content);
+        $this->logger->debug("Returned response {$statusCode}, Content-Type {$content_type}", $content);
 
         if ($statusCode !== 200) {
             $statusMessage = '';

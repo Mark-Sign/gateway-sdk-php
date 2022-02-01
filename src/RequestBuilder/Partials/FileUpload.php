@@ -3,6 +3,7 @@
 namespace AppBundle\GatewaySDKPhp\RequestBuilder\Partials;
 
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
+use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
 class FileUpload
 {
@@ -12,6 +13,7 @@ class FileUpload
      * Name of the file
      *
      * @var string
+     * @RequestParameter(name = "filename")
      */
     protected $filename;
 
@@ -19,6 +21,7 @@ class FileUpload
      * Base64 encoded content of the file
      *
      * @var string
+     * @RequestParameter(name = "content")
      */
     protected $content;
 
@@ -26,6 +29,7 @@ class FileUpload
      * Callback URL to send uuid after signing
      *
      * @var string
+     * @RequestParameter(name = "callbackUrl")
      */
     protected $callbackUrl;
 
