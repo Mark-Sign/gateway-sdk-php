@@ -16,13 +16,22 @@ class Connector implements ConnectorInterface
 {
     private const API_PATH_SIGN_DOCUMENT_SMART_ID = '/smartid/sign.json';
     private const API_PATH_SIGN_DOCUMENT_MOBILE_ID = '/mobileid/sign.json';
-    private const API_PATH_DOCUMENT_UPLOAD = '/document/upload.json';
-    private const API_PATH_DOCUMENT_VALIDATION = '/v2/document/{documentId}/validation.json';
-    private const API_PATH_DOCUMENT_FILE_VALIDATION = '/v2/document/validation.json';
-    private const API_PATH_DOCUMENT_SIGNER_INVITE = '/document/{documentId}/invite-signer.json';
-    private const API_PATH_DOCUMENT_STATUS_CHECK = '/document/{documentId}/check-status.json';
-    private const API_PATH_DOCUMENT_DOWNLOAD = '/document/{documentId}/download.json';
-    private const API_PATH_DOCUMENT_REMOVE = '/document/{documentId}/remove.json';
+
+    private const API_PATH_DOCUMENT_UPLOAD = '/api/document/upload.json';
+    private const API_PATH_DOCUMENT_VALIDATION = '/api/v2/document/{documentId}/validation.json';
+    private const API_PATH_DOCUMENT_FILE_VALIDATION = '/api/v2/document/validation.json';
+    private const API_PATH_DOCUMENT_SIGNER_INVITE = '/api/document/{documentId}/invite-signer.json';
+    private const API_PATH_DOCUMENT_STATUS_CHECK = '/api/document/{documentId}/check-status.json';
+    private const API_PATH_DOCUMENT_DOWNLOAD = '/api/document/{documentId}/download.json';
+    private const API_PATH_DOCUMENT_REMOVE = '/api/document/{documentId}/remove.json';
+
+    private const API_PATH_MOBILE_ID_INIT_AUTH = '/mobile/login.json';
+    private const API_PATH_MOBILE_ID_IDENT8N_SESSION_STATUS = '/mobile/status/{token}.json';
+    private const API_PATH_MOBILE_ID_INIT_SIGNING = '/mobile/sign.json';
+    private const API_PATH_MOBILE_ID_SIGNING_STATUS = '/mobile/sign/status/{token}.json';
+    private const API_PATH_MOBILE_ID_INIT_HASH_SIGNING = '/mobile/sign/hash.json';
+    private const API_PATH_MOBILE_ID_HASH_SIGNING_STATUS = '/mobile/sign-hash/status/{token}.json';
+    private const API_PATH_MOBILE_ID_IDENT8N_REMOVE = '/api/mobile/session/{sessionId}';
 
     /**
      * @var string
@@ -71,6 +80,20 @@ class Connector implements ConnectorInterface
                 return $this->getDocumentDownloadRequest($request);
             case RequestInterface::API_NAME_DOCUMENT_REMOVE:
                 return $this->deleteDocumentRemoveRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_INIT_AUTH:
+                return $this->postMobileidInitAuthRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_IDENT8N_SESSION_STATUS:
+                return $this->postMobileidIdent8nSessionStatusRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_INIT_SIGNING:
+                return $this->postMobileidInitSignRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_SIGNING_STATUS:
+                return $this->postMobileidSigningStatusRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_INIT_HASH_SIGNING:
+                return $this->postMobileidInitHashSignRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_HASH_SIGNING_STATUS:
+                return $this->postMobileidHashSigningStatusRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_IDENT8N_REMOVE:
+                return $this->deleteMobileidIdent8nSessionRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');
         }
@@ -256,6 +279,125 @@ class Connector implements ConnectorInterface
     }
 
     /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postMobileidInitAuthRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_AUTH, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postMobileidIdent8nSessionStatusRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENT8N_SESSION_STATUS, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postMobileidInitSignRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_SIGNING, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postMobileidSigningStatusRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_SIGNING_STATUS, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postMobileidInitHashSignRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_HASH_SIGNING, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postMobileidHashSigningStatusRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_HASH_SIGNING_STATUS, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function deleteMobileidIdent8nSessionRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'DELETE',
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENT8N_REMOVE, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
      * @param string $method
      * @param string $apiPath
      * @param array $options
@@ -274,7 +416,7 @@ class Connector implements ConnectorInterface
             $statusCode = $response->getStatusCode();
 
             // Determine Content-Type
-            $headers = $response->getHeaders();
+            $headers = $response->getHeaders(false);
             $content_type = (isset($headers['content-type']) && isset($headers['content-type'][0])) ? $headers['content-type'][0] : '';
             // If Content-Type is other than application/json, we don't need to convert it to array
             $content = ($content_type == 'application/json') ? $response->toArray(false) : [];
