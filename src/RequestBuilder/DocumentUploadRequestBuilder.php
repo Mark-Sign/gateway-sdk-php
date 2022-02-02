@@ -10,8 +10,7 @@ use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Partials\FileUpload;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Partials\Signer;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
-use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Constraints AS Assert;
+use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
 class DocumentUploadRequestBuilder extends AbstractRequestBuilder
 {
@@ -19,48 +18,49 @@ class DocumentUploadRequestBuilder extends AbstractRequestBuilder
 
     /**
      * @var string
+     * @RequestParameter(name = "access_token")
      */
-    protected $access_token;
+    protected $accessToken;
 
     /**
      * @var string
+     * @RequestParameter(name = "access")
      */
     protected $access;
 
     /**
      * @var FileUpload
+     * @RequestParameter(name = "file")
      */
     protected $file;
 
     /**
      * @var Signer[]
+     * @RequestParameter(name = "signers")
      */
     protected $signers;
 
     public function createRequest(): RequestInterface
     {
-        $bodyParams = $this->buildParameters();
+        $this->bodyParams = $this->buildParameters();
         
-        // Here, we can pass $bodyParams to $this->validateParameters()
-        // to validate if all the required parameters have been set or not.
-        // We can use any validator that seems suitable
-        $this->validateParameters();
+        $this->validateParameters(['access_token', 'access', 'file', 'signers']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_DOCUMENT_UPLOAD);
         
-        $request->setBodyParameters($bodyParams);
+        $request->setBodyParameters($this->bodyParams);
 
         return $request;
     }
 
     /**
-     * @param string $access_token
+     * @param string $accessToken
      * @return self
      */
-    public function withAccessToken(string $access_token): self
+    public function withAccessToken(string $accessToken): self
     {
-        $this->access_token = $access_token;
+        $this->accessToken = $accessToken;
 
         return $this;
     }
@@ -98,17 +98,4 @@ class DocumentUploadRequestBuilder extends AbstractRequestBuilder
         return $this;
     }
 
-    /**
-     * @throws MissingParameterException
-     */
-    private function validateParameters()
-    {
-        $requiredParams = ['access_token', 'access', 'file', 'signers'];
-
-        foreach ($requiredParams as $param) {
-            if (!isset($this->$param)) {
-                throw new MissingParameterException("Missing required request parameter '{$param}'");
-            }
-        }
-    }
 }

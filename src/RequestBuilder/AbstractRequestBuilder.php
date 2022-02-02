@@ -3,6 +3,7 @@
 
 namespace AppBundle\GatewaySDKPhp\RequestBuilder;
 
+use AppBundle\GatewaySDKPhp\Exception\MissingParameterException;
 
 abstract class AbstractRequestBuilder implements RequestBuilderInterface
 {
@@ -20,5 +21,22 @@ abstract class AbstractRequestBuilder implements RequestBuilderInterface
         $this->apiKey = $apiKey;
 
         return $this;
+    }
+
+    /**
+     * @var array
+     */
+    protected $bodyParams = [];
+
+    /**
+     * @throws MissingParameterException
+     */
+    protected function validateParameters(array $requiredParams)
+    {
+        foreach ($requiredParams as $param) {
+            if (!isset($this->bodyParams[$param])) {
+                throw new MissingParameterException("Missing required request parameter '{$param}'");
+            }
+        }
     }
 }

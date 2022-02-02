@@ -36,4 +36,16 @@ class Response implements ResponseInterface
     {
         return $this->response->toArray(false);
     }
+
+    public function getHeaders(): array
+    {
+        return $this->response->getHeaders(false);
+    }
+
+    public function getHeader(string $headerName)
+    {
+        $headers = $this->getHeaders();
+        $headerName = strtolower($headerName);
+        return (isset($headers[$headerName]) && isset($headers[$headerName][0])) ? $headers[$headerName][0] : null;
+    }
 }

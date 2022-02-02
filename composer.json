@@ -4,7 +4,8 @@
     "require": {
         "php": ">=7.2",
         "psr/log": "^1.1",
-        "symfony/http-client": "^5.4"
+        "symfony/http-client": "^5.4",
+        "doctrine/annotations": "^1.13"
     },
     "license": "MIT",
     "authors": [

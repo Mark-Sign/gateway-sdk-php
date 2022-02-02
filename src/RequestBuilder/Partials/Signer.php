@@ -3,6 +3,7 @@
 namespace AppBundle\GatewaySDKPhp\RequestBuilder\Partials;
 
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
+use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
 class Signer
 {
@@ -12,6 +13,7 @@ class Signer
      * Signer's name
      *
      * @var string
+     * @RequestParameter(name = "name")
      */
     protected $name;
 
@@ -19,6 +21,7 @@ class Signer
      * Signer's surname
      *
      * @var string
+     * @RequestParameter(name = "surname")
      */
     protected $surname;
 
@@ -26,6 +29,7 @@ class Signer
      * Signer's email
      *
      * @var string
+     * @RequestParameter(name = "email")
      */
     protected $email;
 
@@ -33,6 +37,7 @@ class Signer
      * Document upload success redirection URL
      *
      * @var string
+     * @RequestParameter(name = "successUrl")
      */
     protected $successUrl;
 
@@ -40,6 +45,7 @@ class Signer
      * If TRUE then email with invitation URL will not be sent to signer
      *
      * @var bool
+     * @RequestParameter(name = "noEmail")
      */
     protected $noEmail;
 

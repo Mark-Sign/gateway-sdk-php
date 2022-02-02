@@ -3,14 +3,13 @@
 
 namespace AppBundle\GatewaySDKPhp\RequestBuilder;
 
-
-use AppBundle\GatewaySDKPhp\Exception\MissingParameterException;
 use AppBundle\GatewaySDKPhp\Model\Request;
 use AppBundle\GatewaySDKPhp\Model\RequestInterface;
+use AppBundle\GatewaySDKPhp\RequestBuilder\Partials\FileUpload;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
-class DocumentValidationRequestBuilder extends AbstractRequestBuilder
+class DocumentFileValidationRequestBuilder extends AbstractRequestBuilder
 {
     use TraitBuildParameters;
 
@@ -21,19 +20,19 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
     protected $accessToken;
 
     /**
-     * @var string
-     * @RequestParameter(name = "documentId")
+     * @var FileUpload
+     * @RequestParameter(name = "file")
      */
-    protected $documentId;
+    protected $file;
 
     public function createRequest(): RequestInterface
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'documentId']);
+        $this->validateParameters(['access_token', 'file']);
         
         $request = new Request();
-        $request->setApiName(Request::API_NAME_DOCUMENT_VALIDATION);
+        $request->setApiName(Request::API_NAME_DOCUMENT_FILE_VALIDATION);
         
         $request->setBodyParameters($this->bodyParams);
 
@@ -52,12 +51,12 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
-     * @param string $access
+     * @param FileUpload $file
      * @return self
      */
-    public function withDocumentId(string $documentId): self
+    public function withFile(FileUpload $file): self
     {
-        $this->documentId = $documentId;
+        $this->file = $file;
 
         return $this;
     }

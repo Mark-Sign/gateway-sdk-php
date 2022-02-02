@@ -3,14 +3,12 @@
 
 namespace AppBundle\GatewaySDKPhp\RequestBuilder;
 
-
-use AppBundle\GatewaySDKPhp\Exception\MissingParameterException;
 use AppBundle\GatewaySDKPhp\Model\Request;
 use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
-class DocumentValidationRequestBuilder extends AbstractRequestBuilder
+class DocumentRemoveRequestBuilder extends AbstractRequestBuilder
 {
     use TraitBuildParameters;
 
@@ -30,10 +28,10 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'documentId']);
+        $this->validateParameters(['access_token']);
         
         $request = new Request();
-        $request->setApiName(Request::API_NAME_DOCUMENT_VALIDATION);
+        $request->setApiName(Request::API_NAME_DOCUMENT_REMOVE);
         
         $request->setBodyParameters($this->bodyParams);
 
@@ -52,7 +50,7 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
-     * @param string $access
+     * @param string $documentId
      * @return self
      */
     public function withDocumentId(string $documentId): self
