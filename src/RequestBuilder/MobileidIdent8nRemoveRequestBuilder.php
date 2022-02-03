@@ -8,7 +8,7 @@ use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
-class MobileidIdent8nRemoveRequestBuilder extends AbstractRequestBuilder
+class MobileidIDENTIFICATIONRemoveRequestBuilder extends AbstractRequestBuilder
 {
     use TraitBuildParameters;
 
@@ -63,7 +63,7 @@ class MobileidIdent8nRemoveRequestBuilder extends AbstractRequestBuilder
         $this->validateParameters(['sessionId', 'access_token']);
         
         $request = new Request();
-        $request->setApiName(Request::API_NAME_MOBILE_ID_IDENT8N_REMOVE);
+        $request->setApiName(Request::API_NAME_MOBILE_ID_IDENTIFICATION_REMOVE);
         
         $request->setBodyParameters($this->bodyParams);
 

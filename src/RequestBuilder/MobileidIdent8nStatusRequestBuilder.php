@@ -8,7 +8,7 @@ use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
-class MobileidIdent8nStatusRequestBuilder extends AbstractRequestBuilder
+class MobileidIDENTIFICATIONStatusRequestBuilder extends AbstractRequestBuilder
 {
     use TraitBuildParameters;
 
@@ -63,7 +63,7 @@ class MobileidIdent8nStatusRequestBuilder extends AbstractRequestBuilder
         $this->validateParameters(['token', 'access_token']);
         
         $request = new Request();
-        $request->setApiName(Request::API_NAME_MOBILE_ID_IDENT8N_SESSION_STATUS);
+        $request->setApiName(Request::API_NAME_MOBILE_ID_IDENTIFICATION_SESSION_STATUS);
         
         $request->setBodyParameters($this->bodyParams);
 

@@ -26,12 +26,12 @@ class Connector implements ConnectorInterface
     private const API_PATH_DOCUMENT_REMOVE = '/api/document/{documentId}/remove.json';
 
     private const API_PATH_MOBILE_ID_INIT_AUTH = '/mobile/login.json';
-    private const API_PATH_MOBILE_ID_IDENT8N_SESSION_STATUS = '/mobile/status/{token}.json';
+    private const API_PATH_MOBILE_ID_IDENTIFICATION_SESSION_STATUS = '/mobile/status/{token}.json';
     private const API_PATH_MOBILE_ID_INIT_SIGNING = '/mobile/sign.json';
     private const API_PATH_MOBILE_ID_SIGNING_STATUS = '/mobile/sign/status/{token}.json';
     private const API_PATH_MOBILE_ID_INIT_HASH_SIGNING = '/mobile/sign/hash.json';
     private const API_PATH_MOBILE_ID_HASH_SIGNING_STATUS = '/mobile/sign-hash/status/{token}.json';
-    private const API_PATH_MOBILE_ID_IDENT8N_REMOVE = '/api/mobile/session/{sessionId}';
+    private const API_PATH_MOBILE_ID_IDENTIFICATION_REMOVE = '/api/mobile/session/{sessionId}';
 
     /**
      * @var string
@@ -82,8 +82,8 @@ class Connector implements ConnectorInterface
                 return $this->deleteDocumentRemoveRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_INIT_AUTH:
                 return $this->postMobileidInitAuthRequest($request);
-            case RequestInterface::API_NAME_MOBILE_ID_IDENT8N_SESSION_STATUS:
-                return $this->postMobileidIdent8nSessionStatusRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_IDENTIFICATION_SESSION_STATUS:
+                return $this->postMobileidIDENTIFICATIONSessionStatusRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_INIT_SIGNING:
                 return $this->postMobileidInitSignRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_SIGNING_STATUS:
@@ -92,8 +92,8 @@ class Connector implements ConnectorInterface
                 return $this->postMobileidInitHashSignRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_HASH_SIGNING_STATUS:
                 return $this->postMobileidHashSigningStatusRequest($request);
-            case RequestInterface::API_NAME_MOBILE_ID_IDENT8N_REMOVE:
-                return $this->deleteMobileidIdent8nSessionRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_IDENTIFICATION_REMOVE:
+                return $this->deleteMobileidIDENTIFICATIONSessionRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');
         }
@@ -299,11 +299,11 @@ class Connector implements ConnectorInterface
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function postMobileidIdent8nSessionStatusRequest(RequestInterface $request): ResponseInterface
+    public function postMobileidIDENTIFICATIONSessionStatusRequest(RequestInterface $request): ResponseInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENT8N_SESSION_STATUS, $request),
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENTIFICATION_SESSION_STATUS, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -384,11 +384,11 @@ class Connector implements ConnectorInterface
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function deleteMobileidIdent8nSessionRequest(RequestInterface $request): ResponseInterface
+    public function deleteMobileidIDENTIFICATIONSessionRequest(RequestInterface $request): ResponseInterface
     {
         $response = $this->postClientRequest(
             'DELETE',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENT8N_REMOVE, $request),
+            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENTIFICATION_REMOVE, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
