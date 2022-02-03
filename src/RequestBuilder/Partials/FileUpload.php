@@ -18,12 +18,28 @@ class FileUpload
     protected $filename;
 
     /**
+     * Name of the file
+     *
+     * @var string
+     * @RequestParameter(name = "name")
+     */
+    protected $name;
+
+    /**
      * Base64 encoded content of the file
      *
      * @var string
      * @RequestParameter(name = "content")
      */
     protected $content;
+
+    /**
+     * SHA256 checksum of file content
+     *
+     * @var string
+     * @RequestParameter(name = "digest")
+     */
+    protected $digest;
 
     /**
      * Callback URL to send uuid after signing
@@ -53,6 +69,30 @@ class FileUpload
     public function setFilename(string $filename)
     {
         $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * Get name of the file
+     *
+     * @return  string
+     */ 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name of the file
+     *
+     * @param  string  $name  Name of the file
+     *
+     * @return  self
+     */ 
+    public function setName(string $name)
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -101,6 +141,30 @@ class FileUpload
     public function setCallbackUrl(string $callbackUrl)
     {
         $this->callbackUrl = $callbackUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get sHA256 checksum of file content
+     *
+     * @return  string
+     */ 
+    public function getDigest()
+    {
+        return $this->digest;
+    }
+
+    /**
+     * Set sHA256 checksum of file content
+     *
+     * @param  string  $digest  SHA256 checksum of file content
+     *
+     * @return  self
+     */ 
+    public function setDigest(string $digest)
+    {
+        $this->digest = $digest;
 
         return $this;
     }
