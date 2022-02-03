@@ -8,17 +8,17 @@ use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
-class MobileidIDENTIFICATIONRemoveRequestBuilder extends AbstractRequestBuilder
+class MobileidIdentificationStatusRequestBuilder extends AbstractRequestBuilder
 {
     use TraitBuildParameters;
 
     /**
-     * Unique request number
+     * Token received from /mobile/login call
      * 
      * @var string
-     * @RequestParameter(name = "sessionId")
+     * @RequestParameter(name = "token")
      */
-    protected $sessionId;
+    protected $token;
 
     /**
      * API access token
@@ -29,15 +29,15 @@ class MobileidIDENTIFICATIONRemoveRequestBuilder extends AbstractRequestBuilder
     protected $accessToken;
 
     /**
-     * Set Unique request number
+     * Set Token received from /mobile/login call
      *
      * @param  string  $token
      *
      * @return  self
      */ 
-    public function withSessionId(string $sessionId)
+    public function withToken(string $token)
     {
-        $this->sessionId = $sessionId;
+        $this->token = $token;
 
         return $this;
     }
@@ -60,10 +60,10 @@ class MobileidIDENTIFICATIONRemoveRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['sessionId', 'access_token']);
+        $this->validateParameters(['token', 'access_token']);
         
         $request = new Request();
-        $request->setApiName(Request::API_NAME_MOBILE_ID_IDENTIFICATION_REMOVE);
+        $request->setApiName(Request::API_NAME_MOBILE_ID_IDENTIFICATION_SESSION_STATUS);
         
         $request->setBodyParameters($this->bodyParams);
 
