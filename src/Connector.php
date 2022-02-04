@@ -33,6 +33,14 @@ class Connector implements ConnectorInterface
     private const API_PATH_MOBILE_ID_HASH_SIGNING_STATUS = '/mobile/sign-hash/status/{token}.json';
     private const API_PATH_MOBILE_ID_IDENTIFICATION_REMOVE = '/api/mobile/session/{sessionId}';
 
+    private const API_PATH_SMART_ID_INIT_AUTH = '/smartid/login.json';
+    private const API_PATH_SMART_ID_IDENTIFICATION_SESSION_STATUS = '/smartid/status/{token}.json';
+    private const API_PATH_SMART_ID_INIT_SIGNING = '/smartid/sign.json';
+    private const API_PATH_SMART_ID_SIGNING_STATUS = '/smartid/sign/status/{token}.json';
+    private const API_PATH_SMART_ID_INIT_HASH_SIGNING = '/smartid/sign/hash.json';
+    private const API_PATH_SMART_ID_HASH_SIGNING_STATUS = '/smartid/sign/hash/status/{token}.json';
+    private const API_PATH_SMART_ID_IDENTIFICATION_REMOVE = '/api/smartid/session/{sessionId}';
+
     /**
      * @var string
      */
@@ -83,7 +91,7 @@ class Connector implements ConnectorInterface
             case RequestInterface::API_NAME_MOBILE_ID_INIT_AUTH:
                 return $this->postMobileidInitAuthRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_IDENTIFICATION_SESSION_STATUS:
-                return $this->postMobileidIDENTIFICATIONSessionStatusRequest($request);
+                return $this->postMobileidIdentificationSessionStatusRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_INIT_SIGNING:
                 return $this->postMobileidInitSignRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_SIGNING_STATUS:
@@ -93,7 +101,21 @@ class Connector implements ConnectorInterface
             case RequestInterface::API_NAME_MOBILE_ID_HASH_SIGNING_STATUS:
                 return $this->postMobileidHashSigningStatusRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_IDENTIFICATION_REMOVE:
-                return $this->deleteMobileidIDENTIFICATIONSessionRequest($request);
+                return $this->deleteMobileidIdentificationSessionRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_INIT_AUTH:
+                return $this->postSmartidInitAuthRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_IDENTIFICATION_SESSION_STATUS:
+                return $this->postSmartidIdentificationSessionStatusRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_INIT_SIGNING:
+                return $this->postSmartidInitSignRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_SIGNING_STATUS:
+                return $this->postSmartidSigningStatusRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_INIT_HASH_SIGNING:
+                return $this->postSmartidInitHashSignRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_HASH_SIGNING_STATUS:
+                return $this->postSmartidHashSigningStatusRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_IDENTIFICATION_REMOVE:
+                return $this->deleteSmartidIdentificationSessionRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');
         }
@@ -299,7 +321,7 @@ class Connector implements ConnectorInterface
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function postMobileidIDENTIFICATIONSessionStatusRequest(RequestInterface $request): ResponseInterface
+    public function postMobileidIdentificationSessionStatusRequest(RequestInterface $request): ResponseInterface
     {
         $response = $this->postClientRequest(
             'POST',
@@ -384,7 +406,7 @@ class Connector implements ConnectorInterface
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function deleteMobileidIDENTIFICATIONSessionRequest(RequestInterface $request): ResponseInterface
+    public function deleteMobileidIdentificationSessionRequest(RequestInterface $request): ResponseInterface
     {
         $response = $this->postClientRequest(
             'DELETE',
@@ -396,6 +418,126 @@ class Connector implements ConnectorInterface
 
         return new Response($response);
     }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postSmartidInitAuthRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_AUTH, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postSmartidIdentificationSessionStatusRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_SMART_ID_IDENTIFICATION_SESSION_STATUS, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postSmartidInitSignRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_SIGNING, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postSmartidSigningStatusRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_SMART_ID_SIGNING_STATUS, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postSmartidInitHashSignRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_HASH_SIGNING, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postSmartidHashSigningStatusRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_SMART_ID_HASH_SIGNING_STATUS, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function deleteSmartidIdentificationSessionRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'DELETE',
+            $this->replaceURLParameters(self::API_PATH_SMART_ID_IDENTIFICATION_REMOVE, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
 
     /**
      * @param string $method
