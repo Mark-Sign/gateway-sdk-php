@@ -25,6 +25,11 @@ class DocumentFileValidationRequestBuilder extends AbstractRequestBuilder
      */
     protected $file;
 
+    /**
+     * Builds the request object
+     *
+     * @return RequestInterface
+     */
     public function createRequest(): RequestInterface
     {
         $this->bodyParams = $this->buildParameters();

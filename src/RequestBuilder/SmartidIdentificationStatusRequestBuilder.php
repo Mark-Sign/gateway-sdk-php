@@ -56,6 +56,11 @@ class SmartidIdentificationStatusRequestBuilder extends AbstractRequestBuilder
         return $this;
     }
 
+    /**
+     * Builds the request object
+     *
+     * @return RequestInterface
+     */
     public function createRequest(): RequestInterface
     {
         $this->bodyParams = $this->buildParameters();

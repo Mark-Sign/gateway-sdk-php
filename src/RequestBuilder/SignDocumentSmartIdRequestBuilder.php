@@ -60,6 +60,11 @@ class SignDocumentSmartIdRequestBuilder extends AbstractRequestBuilder
      */
     private $files;
 
+    /**
+     * Builds the request object
+     *
+     * @return RequestInterface
+     */
     public function createRequest(): RequestInterface
     {
         $this->validateParameters();

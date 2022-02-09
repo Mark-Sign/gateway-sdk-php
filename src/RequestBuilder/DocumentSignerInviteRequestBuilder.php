@@ -31,6 +31,11 @@ class DocumentSignerInviteRequestBuilder extends AbstractRequestBuilder
      */
     protected $signer;
 
+    /**
+     * Builds the request object
+     *
+     * @return RequestInterface
+     */
     public function createRequest(): RequestInterface
     {
         $this->bodyParams = $this->buildParameters();
