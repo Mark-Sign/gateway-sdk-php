@@ -24,6 +24,11 @@ class DocumentStatusCheckRequestBuilder extends AbstractRequestBuilder
      */
     protected $documentId;
 
+    /**
+     * Builds the request object
+     *
+     * @return RequestInterface
+     */
     public function createRequest(): RequestInterface
     {
         $this->bodyParams = $this->buildParameters();

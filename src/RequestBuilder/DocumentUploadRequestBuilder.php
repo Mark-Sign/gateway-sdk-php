@@ -40,6 +40,11 @@ class DocumentUploadRequestBuilder extends AbstractRequestBuilder
      */
     protected $signers;
 
+    /**
+     * Builds the request object
+     *
+     * @return RequestInterface
+     */
     public function createRequest(): RequestInterface
     {
         $this->bodyParams = $this->buildParameters();
