@@ -35,7 +35,7 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['documentId']);
+        $this->validateParameters(['access_token', 'documentId']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_DOCUMENT_VALIDATION);
