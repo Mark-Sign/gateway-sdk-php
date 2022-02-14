@@ -4,7 +4,7 @@
 namespace AppBundle\GatewaySDKPhp;
 
 
-use AppBundle\GatewaySDKPhp\ConnectorDoc AS Connector;
+use AppBundle\GatewaySDKPhp\Connector;
 use AppBundle\GatewaySDKPhp\ConnectorInterface;
 use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\Model\ResponseInterface;
