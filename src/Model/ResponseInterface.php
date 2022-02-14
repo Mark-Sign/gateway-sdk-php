@@ -29,5 +29,5 @@ interface ResponseInterface
     /**
      * @return mixed|null
      */
-    public function getHeader(string $headerName): mixed|null;
+    public function getHeader(string $headerName): ?mixed;
 }
