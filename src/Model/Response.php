@@ -42,7 +42,7 @@ class Response implements ResponseInterface
         return $this->response->getHeaders(false);
     }
 
-    public function getHeader(string $headerName)
+    public function getHeader(string $headerName): mixed|null
     {
         $headers = $this->getHeaders();
         $headerName = strtolower($headerName);

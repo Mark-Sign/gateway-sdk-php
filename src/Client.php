@@ -4,7 +4,7 @@
 namespace AppBundle\GatewaySDKPhp;
 
 
-use AppBundle\GatewaySDKPhp\Connector;
+use AppBundle\GatewaySDKPhp\ConnectorDoc AS Connector;
 use AppBundle\GatewaySDKPhp\ConnectorInterface;
 use AppBundle\GatewaySDKPhp\Model\RequestInterface;
 use AppBundle\GatewaySDKPhp\Model\ResponseInterface;
@@ -34,10 +34,11 @@ class Client
      * @param string $apiKey
      * @param LoggerInterface $logger
      */
-    public function __construct(string $apiKey, LoggerInterface $logger)
+    public function __construct(string $apiKey, LoggerInterface $logger, string $locale = 'lt')
     {
         $this->apiKey = $apiKey;
         $this->logger = $logger;
+        $this->locale = $locale;
     }
 
     /**
@@ -71,7 +72,7 @@ class Client
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function postRequest(RequestInterface $request): ResponseInterface
+    public function postRequest(RequestInterface $request)
     {
         return $this->getConnector()->postRequest($request);
     }
@@ -82,7 +83,7 @@ class Client
     private function getConnector(): ConnectorInterface
     {
         if (!isset($this->connector)) {
-            $this->connector = new Connector($this->logger);
+            $this->connector = new Connector($this->logger, $this->locale);
         }
 
         return $this->connector;

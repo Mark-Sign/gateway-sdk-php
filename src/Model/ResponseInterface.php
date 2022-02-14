@@ -20,4 +20,14 @@ interface ResponseInterface
      * @return array
      */
     public function toArray(): array;
+
+    /**
+     * @return array
+     */
+    public function getHeaders(): array;
+
+    /**
+     * @return mixed|null
+     */
+    public function getHeader(string $headerName): mixed|null;
 }

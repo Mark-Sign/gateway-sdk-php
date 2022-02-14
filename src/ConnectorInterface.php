@@ -13,5 +13,5 @@ interface ConnectorInterface
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function postRequest(RequestInterface $request): ResponseInterface;
+    public function postRequest(RequestInterface $request);
 }
