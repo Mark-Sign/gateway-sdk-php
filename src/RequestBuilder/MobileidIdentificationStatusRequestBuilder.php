@@ -21,14 +21,6 @@ class MobileidIdentificationStatusRequestBuilder extends AbstractRequestBuilder
     protected $token;
 
     /**
-     * API access token
-     * 
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * Set Token received from /mobile/login call
      *
      * @param  string  $token
@@ -43,20 +35,6 @@ class MobileidIdentificationStatusRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
-     * Set API access token
-     *
-     * @param  string  $accessToken
-     *
-     * @return  self
-     */ 
-    public function withAccessToken(string $accessToken)
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
-    }
-
-    /**
      * Builds the request object
      *
      * @return RequestInterface
@@ -65,7 +43,7 @@ class MobileidIdentificationStatusRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['token', 'access_token']);
+        $this->validateParameters(['token']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_MOBILE_ID_IDENTIFICATION_SESSION_STATUS);

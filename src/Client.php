@@ -17,7 +17,7 @@ class Client
     /**
      * @var string
      */
-    private $apiKey;
+    private $accessToken;
 
     /**
      * @var ConnectorInterface
@@ -31,12 +31,12 @@ class Client
 
     /**
      * Client constructor.
-     * @param string $apiKey
+     * @param string $accessToken
      * @param LoggerInterface $logger
      */
-    public function __construct(string $apiKey, LoggerInterface $logger, string $locale = 'lt')
+    public function __construct(string $accessToken, LoggerInterface $logger, string $locale = 'lt')
     {
-        $this->apiKey = $apiKey;
+        $this->accessToken = $accessToken;
         $this->logger = $logger;
         $this->locale = $locale;
     }
@@ -74,6 +74,9 @@ class Client
      */
     public function postRequest(RequestInterface $request)
     {
+        // Cannot use hydrateRequestBuilder() because the parameters are already generated in implementations of RequestBuilderInterface::createRequest()
+        // If we use hydrateRequestBuilder(), we have to rebuild the parameters, and building parameters multiple times might be costly
+        $request->setBodyParameters(array_merge(['access_token' => $this->accessToken], $request->getBodyParameters()));
         return $this->getConnector()->postRequest($request);
     }
 
@@ -94,6 +97,6 @@ class Client
      */
     private function hydrateRequestBuilder(RequestBuilderInterface $requestBuilder)
     {
-        $requestBuilder->withApiKey($this->apiKey);
+        $requestBuilder->withAccessToken($this->accessToken);
     }
 }

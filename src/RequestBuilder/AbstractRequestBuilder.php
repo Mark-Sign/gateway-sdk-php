@@ -4,21 +4,24 @@
 namespace AppBundle\GatewaySDKPhp\RequestBuilder;
 
 use AppBundle\GatewaySDKPhp\Exception\MissingParameterException;
+use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 
 abstract class AbstractRequestBuilder implements RequestBuilderInterface
 {
     /**
      * @var string
      */
-    protected $apiKey;
+    protected $accessToken;
 
     /**
-     * @param string $apiKey
+     * @RequestParameter(name = "access_token")
+     * 
+     * @param string $accessToken
      * @return RequestBuilderInterface
      */
-    public function withApiKey(string $apiKey): RequestBuilderInterface
+    public function withAccessToken(string $accessToken): RequestBuilderInterface
     {
-        $this->apiKey = $apiKey;
+        $this->accessToken = $accessToken;
 
         return $this;
     }

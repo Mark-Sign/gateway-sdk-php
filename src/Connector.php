@@ -155,7 +155,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            self::API_PATH_SIGN_DOCUMENT_SMART_ID,
+            ($this->locale != 'lt' ? '/en' : '') . self::API_PATH_SIGN_DOCUMENT_SMART_ID,
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -172,7 +172,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            self::API_PATH_SIGN_DOCUMENT_MOBILE_ID,
+            ($this->locale != 'lt' ? '/en' : '') . self::API_PATH_SIGN_DOCUMENT_MOBILE_ID,
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -189,7 +189,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            self::API_PATH_DOCUMENT_UPLOAD,
+            ($this->locale != 'lt' ? '/en' : '') . self::API_PATH_DOCUMENT_UPLOAD,
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -206,7 +206,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_DOCUMENT_VALIDATION, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_DOCUMENT_VALIDATION, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -223,7 +223,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_DOCUMENT_FILE_VALIDATION, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_DOCUMENT_FILE_VALIDATION, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -240,7 +240,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_DOCUMENT_SIGNER_INVITE, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_DOCUMENT_SIGNER_INVITE, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -257,7 +257,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'GET',
-            $this->replaceURLParameters(self::API_PATH_DOCUMENT_STATUS_CHECK, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_DOCUMENT_STATUS_CHECK, $request),
             [
                 'query' => $request->getBodyParameters(),
             ]
@@ -274,7 +274,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'GET',
-            $this->replaceURLParameters(self::API_PATH_DOCUMENT_DOWNLOAD, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_DOCUMENT_DOWNLOAD, $request),
             [
                 'query' => $request->getBodyParameters(),
             ]
@@ -291,7 +291,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'DELETE',
-            $this->replaceURLParameters(self::API_PATH_DOCUMENT_REMOVE, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_DOCUMENT_REMOVE, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -308,7 +308,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_AUTH, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_AUTH, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -325,7 +325,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENTIFICATION_SESSION_STATUS, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENTIFICATION_SESSION_STATUS, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -342,7 +342,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_SIGNING, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_SIGNING, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -359,7 +359,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_SIGNING_STATUS, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_SIGNING_STATUS, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -376,7 +376,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_HASH_SIGNING, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_HASH_SIGNING, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -393,7 +393,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_HASH_SIGNING_STATUS, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_HASH_SIGNING_STATUS, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -410,7 +410,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'DELETE',
-            $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENTIFICATION_REMOVE, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_IDENTIFICATION_REMOVE, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -427,7 +427,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_AUTH, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_AUTH, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -444,7 +444,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_SMART_ID_IDENTIFICATION_SESSION_STATUS, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_IDENTIFICATION_SESSION_STATUS, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -461,7 +461,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_SIGNING, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_SIGNING, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -478,7 +478,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_SMART_ID_SIGNING_STATUS, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_SIGNING_STATUS, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -495,7 +495,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_HASH_SIGNING, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_HASH_SIGNING, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -512,7 +512,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'POST',
-            $this->replaceURLParameters(self::API_PATH_SMART_ID_HASH_SIGNING_STATUS, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_HASH_SIGNING_STATUS, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -529,7 +529,7 @@ class Connector implements ConnectorInterface
     {
         $response = $this->postClientRequest(
             'DELETE',
-            $this->replaceURLParameters(self::API_PATH_SMART_ID_IDENTIFICATION_REMOVE, $request),
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_IDENTIFICATION_REMOVE, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]
@@ -549,6 +549,8 @@ class Connector implements ConnectorInterface
      */
     private function postClientRequest(string $method, string $apiPath, array $options = []): \Symfony\Contracts\HttpClient\ResponseInterface
     {
+        $options['timeout'] = 240;
+        
         $url = $this->apiUrl . $apiPath;
 
         $this->logger->debug("Making request: $method $url", $options);

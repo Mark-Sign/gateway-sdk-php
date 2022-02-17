@@ -13,11 +13,6 @@ class SignDocumentSmartIdRequestBuilder extends AbstractRequestBuilder
     /**
      * @var string
      */
-    private $accessToken;
-
-    /**
-     * @var string
-     */
     private $type;
 
     /**
@@ -97,17 +92,6 @@ class SignDocumentSmartIdRequestBuilder extends AbstractRequestBuilder
         $request->setBodyParameters($bodyParams);
 
         return $request;
-    }
-
-    /**
-     * @param string $accessToken
-     * @return self
-     */
-    public function withAccessToken(string $accessToken): self
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
     }
 
     /**

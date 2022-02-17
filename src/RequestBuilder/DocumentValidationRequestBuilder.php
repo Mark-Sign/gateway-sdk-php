@@ -16,12 +16,6 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
 
     /**
      * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
-     * @var string
      * @RequestParameter(name = "documentId")
      */
     protected $documentId;
@@ -35,7 +29,7 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'documentId']);
+        $this->validateParameters(['documentId']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_DOCUMENT_VALIDATION);
@@ -43,17 +37,6 @@ class DocumentValidationRequestBuilder extends AbstractRequestBuilder
         $request->setBodyParameters($this->bodyParams);
 
         return $request;
-    }
-
-    /**
-     * @param string $accessToken
-     * @return self
-     */
-    public function withAccessToken(string $accessToken): self
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
     }
 
     /**

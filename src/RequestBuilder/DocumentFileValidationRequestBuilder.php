@@ -14,12 +14,6 @@ class DocumentFileValidationRequestBuilder extends AbstractRequestBuilder
     use TraitBuildParameters;
 
     /**
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * @var FileUpload
      * @RequestParameter(name = "file")
      */
@@ -34,7 +28,7 @@ class DocumentFileValidationRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'file']);
+        $this->validateParameters(['file']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_DOCUMENT_FILE_VALIDATION);
@@ -42,17 +36,6 @@ class DocumentFileValidationRequestBuilder extends AbstractRequestBuilder
         $request->setBodyParameters($this->bodyParams);
 
         return $request;
-    }
-
-    /**
-     * @param string $accessToken
-     * @return self
-     */
-    public function withAccessToken(string $accessToken): self
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
     }
 
     /**

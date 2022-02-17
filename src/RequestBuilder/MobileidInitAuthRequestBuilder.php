@@ -13,14 +13,6 @@ class MobileidInitAuthRequestBuilder extends AbstractRequestBuilder
     use TraitBuildParameters;
 
     /**
-     * API access token
-     * 
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * Phone number
      * 
      * @var string
@@ -75,20 +67,6 @@ class MobileidInitAuthRequestBuilder extends AbstractRequestBuilder
      * @RequestParameter(name = "sanctions")
      */
     protected $sanctions;
-
-    /**
-     * Set aPI access token
-     *
-     * @param  string  $accessToken  API access token
-     *
-     * @return  self
-     */ 
-    public function withAccessToken(string $accessToken)
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
-    }
 
     /**
      * Set phone number
@@ -197,7 +175,7 @@ class MobileidInitAuthRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'phone', 'code']);
+        $this->validateParameters(['phone', 'code']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_MOBILE_ID_INIT_AUTH);

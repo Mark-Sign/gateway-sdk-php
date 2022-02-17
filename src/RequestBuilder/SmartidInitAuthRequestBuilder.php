@@ -13,14 +13,6 @@ class SmartidInitAuthRequestBuilder extends AbstractRequestBuilder
     use TraitBuildParameters;
 
     /**
-     * API access token
-     * 
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * Person code
      * 
      * @var string
@@ -59,20 +51,6 @@ class SmartidInitAuthRequestBuilder extends AbstractRequestBuilder
      * @RequestParameter(name = "sanctions")
      */
     protected $sanctions;
-
-    /**
-     * Set aPI access token
-     *
-     * @param  string  $accessToken  API access token
-     *
-     * @return  self
-     */ 
-    public function withAccessToken(string $accessToken)
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
-    }
 
     /**
      * Set person code
@@ -153,7 +131,7 @@ class SmartidInitAuthRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'code', 'country']);
+        $this->validateParameters(['code', 'country']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_SMART_ID_INIT_AUTH);

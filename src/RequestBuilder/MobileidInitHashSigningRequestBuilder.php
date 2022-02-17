@@ -13,14 +13,6 @@ class MobileidInitHashSigningRequestBuilder extends AbstractRequestBuilder
     use TraitBuildParameters;
 
     /**
-     * API access token
-     * 
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * Hash to sign
      *
      * @var string
@@ -67,20 +59,6 @@ class MobileidInitHashSigningRequestBuilder extends AbstractRequestBuilder
      * @RequestParameter(name = "code")
      */
     protected $code;
-
-    /**
-     * Set API access token
-     *
-     * @param  string  $accessToken  API access token
-     *
-     * @return  self
-     */ 
-    public function withAccessToken(string $accessToken)
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
-    }
 
     /**
      * Set hash to sign
@@ -175,7 +153,7 @@ class MobileidInitHashSigningRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'hash', 'phone', 'hash_algorithm', 'country', 'code']);
+        $this->validateParameters(['hash', 'phone', 'hash_algorithm', 'country', 'code']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_MOBILE_ID_INIT_HASH_SIGNING);
