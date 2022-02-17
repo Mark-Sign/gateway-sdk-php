@@ -42,10 +42,10 @@ class Response implements ResponseInterface
         return $this->response->getHeaders(false);
     }
 
-    public function getHeader(string $headerName)
+    public function getHeader(string $headerName): ?string
     {
         $headers = $this->getHeaders();
         $headerName = strtolower($headerName);
-        return (isset($headers[$headerName]) && isset($headers[$headerName][0])) ? $headers[$headerName][0] : null;
+        return (isset($headers[$headerName]) && isset($headers[$headerName][0])) ? $headers[$headerName][0] . '' : null;
     }
 }
