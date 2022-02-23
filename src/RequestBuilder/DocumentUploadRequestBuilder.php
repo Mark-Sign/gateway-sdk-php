@@ -18,12 +18,6 @@ class DocumentUploadRequestBuilder extends AbstractRequestBuilder
 
     /**
      * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
-     * @var string
      * @RequestParameter(name = "access")
      */
     protected $access;
@@ -49,7 +43,7 @@ class DocumentUploadRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'access', 'file', 'signers']);
+        $this->validateParameters(['access', 'file', 'signers']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_DOCUMENT_UPLOAD);
@@ -57,17 +51,6 @@ class DocumentUploadRequestBuilder extends AbstractRequestBuilder
         $request->setBodyParameters($this->bodyParams);
 
         return $request;
-    }
-
-    /**
-     * @param string $accessToken
-     * @return self
-     */
-    public function withAccessToken(string $accessToken): self
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
     }
 
     /**

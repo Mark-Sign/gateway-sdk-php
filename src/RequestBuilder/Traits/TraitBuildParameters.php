@@ -17,7 +17,7 @@ trait TraitBuildParameters
      *
      * @return array
      */
-    public function buildParameters()
+    public function buildParameters(): array
     {
         AnnotationRegistry::registerLoader('class_exists');
         

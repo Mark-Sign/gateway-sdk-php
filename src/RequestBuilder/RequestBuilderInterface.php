@@ -12,7 +12,7 @@ interface RequestBuilderInterface
      * @param string $secret
      * @return self
      */
-    public function withApiKey(string $secret): self;
+    public function withAccessToken(string $accessToken): self;
 
     /**
      * @return RequestInterface

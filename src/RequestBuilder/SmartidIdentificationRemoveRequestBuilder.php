@@ -21,14 +21,6 @@ class SmartidIdentificationRemoveRequestBuilder extends AbstractRequestBuilder
     protected $sessionId;
 
     /**
-     * API access token
-     * 
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * Set Unique request number
      *
      * @param  string  $token
@@ -43,20 +35,6 @@ class SmartidIdentificationRemoveRequestBuilder extends AbstractRequestBuilder
     }
 
     /**
-     * Set API access token
-     *
-     * @param  string  $accessToken
-     *
-     * @return  self
-     */ 
-    public function withAccessToken(string $accessToken)
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
-    }
-
-    /**
      * Builds the request object
      *
      * @return RequestInterface
@@ -65,7 +43,7 @@ class SmartidIdentificationRemoveRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['sessionId', 'access_token']);
+        $this->validateParameters(['sessionId']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_SMART_ID_IDENTIFICATION_REMOVE);

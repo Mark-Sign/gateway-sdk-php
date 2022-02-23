@@ -14,14 +14,6 @@ class MobileidInitSigningRequestBuilder extends AbstractRequestBuilder
     use TraitBuildParameters;
 
     /**
-     * API access token
-     * 
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * Document format. Possible values: pdf, adoc, bdoc, asice.
      * 
      * @var string
@@ -124,20 +116,6 @@ class MobileidInitSigningRequestBuilder extends AbstractRequestBuilder
      * @RequestParameter(name = "bdoc")
      */
     protected $bdoc;
-
-    /**
-     * Set API access token
-     *
-     * @param  string  $accessToken  API access token
-     *
-     * @return  self
-     */ 
-    public function withAccessToken(string $accessToken)
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
-    }
 
     /**
      * Set document format. Possible values: pdf, adoc, bdoc, asice.
@@ -330,7 +308,7 @@ class MobileidInitSigningRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'type', 'phone', 'code']);
+        $this->validateParameters(['type', 'phone', 'code']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_MOBILE_ID_INIT_SIGNING);

@@ -14,14 +14,6 @@ class SmartidInitSigningRequestBuilder extends AbstractRequestBuilder
     use TraitBuildParameters;
 
     /**
-     * API access token
-     * 
-     * @var string
-     * @RequestParameter(name = "access_token")
-     */
-    protected $accessToken;
-
-    /**
      * Document format. Possible values: pdf, adoc, bdoc, asice.
      * 
      * @var string
@@ -124,20 +116,6 @@ class SmartidInitSigningRequestBuilder extends AbstractRequestBuilder
      * @RequestParameter(name = "bdoc")
      */
     protected $bdoc;
-
-    /**
-     * Set aPI access token
-     *
-     * @param  string  $accessToken  API access token
-     *
-     * @return  self
-     */ 
-    public function withAccessToken(string $accessToken)
-    {
-        $this->accessToken = $accessToken;
-
-        return $this;
-    }
 
     /**
      * Set document format. Possible values: pdf, adoc, bdoc, asice.
@@ -330,7 +308,7 @@ class SmartidInitSigningRequestBuilder extends AbstractRequestBuilder
     {
         $this->bodyParams = $this->buildParameters();
         
-        $this->validateParameters(['access_token', 'type', 'country', 'code']);
+        $this->validateParameters(['type', 'country', 'code']);
         
         $request = new Request();
         $request->setApiName(Request::API_NAME_SMART_ID_INIT_SIGNING);
