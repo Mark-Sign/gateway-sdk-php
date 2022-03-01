@@ -28,6 +28,7 @@ class Connector implements ConnectorInterface
     private const API_PATH_MOBILE_ID_INIT_AUTH = '/mobile/login.json';
     private const API_PATH_MOBILE_ID_IDENTIFICATION_SESSION_STATUS = '/mobile/status/{token}.json';
     private const API_PATH_MOBILE_ID_INIT_SIGNING = '/mobile/sign.json';
+    private const API_PATH_MOBILE_ID_INIT_ONLY_SIGNING = '/mobile/only-sign.json';
     private const API_PATH_MOBILE_ID_SIGNING_STATUS = '/mobile/sign/status/{token}.json';
     private const API_PATH_MOBILE_ID_INIT_HASH_SIGNING = '/mobile/sign/hash.json';
     private const API_PATH_MOBILE_ID_HASH_SIGNING_STATUS = '/mobile/sign-hash/status/{token}.json';
@@ -55,16 +56,22 @@ class Connector implements ConnectorInterface
      * @var LoggerInterface
      */
     private $logger;
+    /**
+     * @var string
+     */
+    private $locale;
 
     /**
      * Connector constructor.
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, string $locale)
     {
-        $this->apiUrl = "https://www.markid.lt";
+        //$this->apiUrl = "https://www.markid.lt";
+        $this->apiUrl = "http://markid.local";
         $this->client = HttpClient::create();
         $this->logger = $logger;
+        $this->locale = $locale;
     }
 
     public function postRequest(RequestInterface $request): ResponseInterface
@@ -94,6 +101,8 @@ class Connector implements ConnectorInterface
                 return $this->postMobileidIdentificationSessionStatusRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_INIT_SIGNING:
                 return $this->postMobileidInitSignRequest($request);
+            case RequestInterface::API_NAME_MOBILE_ID_INIT_ONLY_SIGNING:
+                return $this->postMobileidInitOnlySignRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_SIGNING_STATUS:
                 return $this->postMobileidSigningStatusRequest($request);
             case RequestInterface::API_NAME_MOBILE_ID_INIT_HASH_SIGNING:
@@ -343,6 +352,23 @@ class Connector implements ConnectorInterface
         $response = $this->postClientRequest(
             'POST',
             ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_SIGNING, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postMobileidInitOnlySignRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_MOBILE_ID_INIT_ONLY_SIGNING, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]

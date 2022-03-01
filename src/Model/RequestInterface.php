@@ -19,6 +19,7 @@ interface RequestInterface
     public const API_NAME_MOBILE_ID_INIT_AUTH = 'apiMobileidInitAuth';
     public const API_NAME_MOBILE_ID_IDENTIFICATION_SESSION_STATUS = 'apiMobileidCheckIdentificationSessionStatus';
     public const API_NAME_MOBILE_ID_INIT_SIGNING = 'apiMobileidInitSigning';
+    public const API_NAME_MOBILE_ID_INIT_ONLY_SIGNING = 'apiMobileidInitOnlySigning';
     public const API_NAME_MOBILE_ID_SIGNING_STATUS = 'apiMobileidSigningStatus';
     public const API_NAME_MOBILE_ID_INIT_HASH_SIGNING = 'apiMobileidInitHashSigning';
     public const API_NAME_MOBILE_ID_HASH_SIGNING_STATUS = 'apiMobileidHashSigningStatus';
