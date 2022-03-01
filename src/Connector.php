@@ -37,6 +37,7 @@ class Connector implements ConnectorInterface
     private const API_PATH_SMART_ID_INIT_AUTH = '/smartid/login.json';
     private const API_PATH_SMART_ID_IDENTIFICATION_SESSION_STATUS = '/smartid/status/{token}.json';
     private const API_PATH_SMART_ID_INIT_SIGNING = '/smartid/sign.json';
+    private const API_PATH_SMART_ID_INIT_ONLY_SIGNING = '/smartid/only-sign.json';
     private const API_PATH_SMART_ID_SIGNING_STATUS = '/smartid/sign/status/{token}.json';
     private const API_PATH_SMART_ID_INIT_HASH_SIGNING = '/smartid/sign/hash.json';
     private const API_PATH_SMART_ID_HASH_SIGNING_STATUS = '/smartid/sign/hash/status/{token}.json';
@@ -117,6 +118,8 @@ class Connector implements ConnectorInterface
                 return $this->postSmartidIdentificationSessionStatusRequest($request);
             case RequestInterface::API_NAME_SMART_ID_INIT_SIGNING:
                 return $this->postSmartidInitSignRequest($request);
+            case RequestInterface::API_NAME_SMART_ID_INIT_ONLY_SIGNING:
+                return $this->postSmartidInitOnlySignRequest($request);
             case RequestInterface::API_NAME_SMART_ID_SIGNING_STATUS:
                 return $this->postSmartidSigningStatusRequest($request);
             case RequestInterface::API_NAME_SMART_ID_INIT_HASH_SIGNING:
@@ -488,6 +491,23 @@ class Connector implements ConnectorInterface
         $response = $this->postClientRequest(
             'POST',
             ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_SIGNING, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postSmartidInitOnlySignRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            ($this->locale != 'lt' ? '/en' : '') . $this->replaceURLParameters(self::API_PATH_SMART_ID_INIT_ONLY_SIGNING, $request),
             [
                 'json' => $request->getBodyParameters(),
             ]

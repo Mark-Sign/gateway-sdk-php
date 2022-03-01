@@ -28,6 +28,7 @@ interface RequestInterface
     public const API_NAME_SMART_ID_INIT_AUTH = 'apiSmartidInitAuth';
     public const API_NAME_SMART_ID_IDENTIFICATION_SESSION_STATUS = 'apiSmartidCheckIdentificationSessionStatus';
     public const API_NAME_SMART_ID_INIT_SIGNING = 'apiSmartidInitSigning';
+    public const API_NAME_SMART_ID_INIT_ONLY_SIGNING = 'apiSmartidInitOnlySigning';
     public const API_NAME_SMART_ID_SIGNING_STATUS = 'apiSmartidSigningStatus';
     public const API_NAME_SMART_ID_INIT_HASH_SIGNING = 'apiSmartidInitHashSigning';
     public const API_NAME_SMART_ID_HASH_SIGNING_STATUS = 'apiSmartidHashSigningStatus';
