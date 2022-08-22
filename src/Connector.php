@@ -41,6 +41,10 @@ class Connector implements ConnectorInterface
     private const API_PATH_SMART_ID_HASH_SIGNING_STATUS = '/smartid/sign/hash/status/{token}.json';
     private const API_PATH_SMART_ID_IDENTIFICATION_REMOVE = '/api/smartid/session/{sessionId}';
 
+    private const API_PATH_IFRAME_TEMP_SIGNING_LINK_GENERATION = '/api/document/generate-temporary-signing-link.json';
+    private const API_PATH_IFRAME_DOC_SIGNER_LIST_GENERATION = '/api/document/{documentId}/signers.json';
+    private const API_PATH_IFRAME_REMOVE_DOCUMENT_SIGNER = '/api/document/{documentId}/remove-temporary-signer.json';
+
     /**
      * @var string
      */
@@ -116,6 +120,12 @@ class Connector implements ConnectorInterface
                 return $this->postSmartidHashSigningStatusRequest($request);
             case RequestInterface::API_NAME_SMART_ID_IDENTIFICATION_REMOVE:
                 return $this->deleteSmartidIdentificationSessionRequest($request);
+            case RequestInterface::API_NAME_IFRAME_TEMP_SIGNING_LINK_GENERATION:
+                return $this->postIframeTempSigningLinkGenerationRequest($request);
+            case RequestInterface::API_NAME_IFRAME_DOCUMENT_SIGNER_LIST_GENERATION:
+                return $this->postIframeDocSignerListGenerationRequest($request);
+            case RequestInterface::API_NAME_IFRAME_REMOVE_DOCUMENT_SIGNER_GENERATION:
+                return $this->postIframeRemoveDocumentSignerRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');
         }
@@ -538,6 +548,56 @@ class Connector implements ConnectorInterface
         return new Response($response);
     }
 
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postIframeTempSigningLinkGenerationRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            self::API_PATH_IFRAME_TEMP_SIGNING_LINK_GENERATION,
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postIframeDocSignerListGenerationRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_IFRAME_DOC_SIGNER_LIST_GENERATION, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function postIframeRemoveDocumentSignerRequest(RequestInterface $request): ResponseInterface
+    {
+        $response = $this->postClientRequest(
+            'POST',
+            $this->replaceURLParameters(self::API_PATH_IFRAME_REMOVE_DOCUMENT_SIGNER, $request),
+            [
+                'json' => $request->getBodyParameters(),
+            ]
+        );
+
+        return new Response($response);
+    }
 
     /**
      * @param string $method
