@@ -124,7 +124,7 @@ class Connector implements ConnectorInterface
                 return $this->postIframeTempSigningLinkGenerationRequest($request);
             case RequestInterface::API_NAME_IFRAME_DOCUMENT_SIGNER_LIST_GENERATION:
                 return $this->postIframeDocSignerListGenerationRequest($request);
-            case RequestInterface::API_NAME_IFRAME_REMOVE_DOCUMENT_SIGNER_GENERATION:
+            case RequestInterface::API_NAME_IFRAME_DOCUMENT_SIGNER_REMOVE:
                 return $this->postIframeRemoveDocumentSignerRequest($request);
             default:
                 throw new \InvalidArgumentException('Invalid request provided');

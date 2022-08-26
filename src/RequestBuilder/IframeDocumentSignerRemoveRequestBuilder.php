@@ -11,7 +11,7 @@ use AppBundle\GatewaySDKPhp\RequestBuilder\Traits\TraitBuildParameters;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Annotations\RequestParameter;
 use AppBundle\GatewaySDKPhp\RequestBuilder\Partials\Files;
 
-class IframeRemoveDocumentSignerRequestBuilder extends AbstractRequestBuilder
+class IframeDocumentSignerRemoveRequestBuilder extends AbstractRequestBuilder
 {
     use TraitBuildParameters;
 
@@ -123,7 +123,7 @@ class IframeRemoveDocumentSignerRequestBuilder extends AbstractRequestBuilder
         $this->validateParameters(['documentId']);
         
         $request = new Request();
-        $request->setApiName(Request::API_NAME_IFRAME_REMOVE_DOCUMENT_SIGNER_GENERATION);
+        $request->setApiName(Request::API_NAME_IFRAME_DOCUMENT_SIGNER_REMOVE);
         
         $request->setBodyParameters($this->bodyParams);
 

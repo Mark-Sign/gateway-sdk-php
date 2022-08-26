@@ -34,7 +34,7 @@ interface RequestInterface
 
     public const API_NAME_IFRAME_TEMP_SIGNING_LINK_GENERATION = 'apiIframeTempSigningLinkGeneration';
     public const API_NAME_IFRAME_DOCUMENT_SIGNER_LIST_GENERATION = 'apiIframeDocumentSignerListGeneration';
-    public const API_NAME_IFRAME_REMOVE_DOCUMENT_SIGNER_GENERATION = 'apiIframeRemoveDocumentSignerGeneration';
+    public const API_NAME_IFRAME_DOCUMENT_SIGNER_REMOVE = 'apiIframeDocumentSignerRemove';
 
     /**
      * @return string
