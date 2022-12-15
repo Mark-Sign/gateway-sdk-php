@@ -59,16 +59,23 @@ class Connector implements ConnectorInterface
      * @var LoggerInterface
      */
     private $logger;
+    
+     /**
+     * @var string
+     */
+    private $locale;
 
     /**
      * Connector constructor.
      * @param LoggerInterface $logger
+     * @param string $locale
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, string $locale = 'lt')
     {
         $this->apiUrl = "https://www.markid.lt";
         $this->client = HttpClient::create();
         $this->logger = $logger;
+        $this->locale = $locale;
     }
 
     public function postRequest(RequestInterface $request): ResponseInterface
