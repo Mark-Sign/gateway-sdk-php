@@ -66,7 +66,7 @@ class Connector implements ConnectorInterface
      */
     public function __construct(LoggerInterface $logger)
     {
-        $this->apiUrl = "https://www.markid.lt";
+        $this->apiUrl = "https://api.marksign.eu";
         $this->client = HttpClient::create();
         $this->logger = $logger;
     }
